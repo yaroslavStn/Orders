@@ -1,3 +1,7 @@
+package utils;
+
+import entities.Order;
+
 import java.util.Arrays;
 
 public class OrderList {

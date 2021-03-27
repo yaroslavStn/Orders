@@ -1,5 +1,8 @@
+package entities;
+
 import entities.Customer;
 import entities.Product;
+import utils.ProductList;
 
 import java.util.Arrays;
 
@@ -16,6 +19,12 @@ public class Order {
         this.customer = customer;
         this.shippingDetails = shippingDetails;
         this.day = day;
+        this.orderStatus = orderStatus;
+        this.id = id;
+    }
+
+    public Order(ShippingDetails shippingDetails, OrderStatus orderStatus, int id) {
+        this.shippingDetails = shippingDetails;
         this.orderStatus = orderStatus;
         this.id = id;
     }

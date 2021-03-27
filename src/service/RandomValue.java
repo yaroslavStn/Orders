@@ -1,11 +1,12 @@
-import entities.Customer;
-import entities.Product;
+package service;
+
+import entities.*;
+import utils.ProductList;
 
 import java.math.BigDecimal;
-import java.util.Random;
 
-class RandomValue {
-    Customer randomCustomer(int randomId) {
+public class RandomValue {
+    public Customer randomCustomer(int randomId) {
         String[] names = {"Вася", "Петя", "Коля", "Женя", "Толя", "Саша", "Тема"};
         String randomName = names[(int) (Math.random() * names.length)];
 
@@ -13,15 +14,12 @@ class RandomValue {
     }
 
 
-    Product randomProduct(int randomId) {
-        String[] names = {"Milk", "Water", "Chocolate", "Car", "Flower", "Juice", "Fruit"};
-        String randomName = names[(int) (Math.random() * names.length)];
-
+    public Product randomProduct(int randomId, String name) {
         BigDecimal randomCoast = BigDecimal.valueOf(Math.random() * 1000);
-        return new Product(randomCoast, randomName, randomId);
+        return new Product(randomCoast, name, randomId);
     }
 
-    Order randomOrder(ProductList products, Customer[] customers, int orderId) {
+    public Order randomOrder(ProductList products, Customer[] customers, int orderId) {
         ProductList cart = new ProductList();
         for (int i = 0; i < (int) ((Math.random()) * 10 + 1); i++) {
             cart.addProduct(products.getProduct((int) ((Math.random() * products.size()))));
@@ -38,7 +36,7 @@ class RandomValue {
     }
 
     private String randomAddress() {
-        String[] address = {"1st avenue", "2nd avenue", "3th avenue", "4th avenue", "5th avenue", "6th avenue", "7th avenue"};
+        String[] address = {"1st avenue", "122nd avenue", "31th avenue", "4th avenue", "52th avenue", "6th avenue", "7th avenue"};
         return address[(int) (Math.random() * address.length)];
     }
 }

@@ -1,7 +1,8 @@
 import entities.Customer;
-import entities.Product;
-
-import java.util.Arrays;
+import service.Printer;
+import service.RandomValue;
+import utils.OrderList;
+import utils.ProductList;
 
 public class Main {
 
@@ -18,18 +19,25 @@ public class Main {
         Customer[] customers = new Customer[12];
         ProductList products = new ProductList();
         OrderList orders = new OrderList();
+        Printer printer = new Printer();
 
         for (int i = 0; i < customers.length; i++) {
             customers[i] = random.randomCustomer(i + 1);
         }
-        for (int i = 0; i < 12; i++) {
-            products.addProduct(random.randomProduct(i + 1));
+        String[] names = {"Milk", "Water", "Chocolate", "Car", "Flower", "Juice", "Fruit"};
+        for (int i = 0; i < names.length; i++) {
+            products.addProduct(random.randomProduct(i + 1, names[i]));
         }
         for (int i = 0; i < 11; i++) {
             orders.addOrder(random.randomOrder(products, customers, i + 1));
         }
+        //printer.printAwaitingDeliveryOrders(orders);
+
+
         System.out.println(orders);
+        printer.printProductList(products, orders);
 
     }
+
 
 }
