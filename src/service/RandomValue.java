@@ -4,6 +4,7 @@ import entities.*;
 import utils.ProductList;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class RandomValue {
     public Customer randomCustomer(int randomId) {
@@ -16,6 +17,7 @@ public class RandomValue {
 
     public Product randomProduct(int randomId, String name) {
         BigDecimal randomCoast = BigDecimal.valueOf(Math.random() * 1000);
+        randomCoast = randomCoast.setScale(2, RoundingMode.HALF_EVEN);
         return new Product(randomCoast, name, randomId);
     }
 
@@ -24,7 +26,7 @@ public class RandomValue {
         for (int i = 0; i < (int) ((Math.random()) * 10 + 1); i++) {
             cart.addProduct(products.getProduct((int) ((Math.random() * products.size()))));
         }
-        Customer randomCust = customers[(int) ((Math.random() * customers.length))];
+        Customer customer = customers[(int) ((Math.random() * customers.length))];
         BigDecimal cartCoast = new BigDecimal("0");
         for (int i = 0; i < cart.size(); i++) cartCoast = cart.getProduct(i).getCost().add(cartCoast);
         ShippingDetails randomDetails = new ShippingDetails(cartCoast, randomAddress());
@@ -32,7 +34,7 @@ public class RandomValue {
         OrderStatus randomStatus = statuses[(int) ((Math.random()) * statuses.length)];
         int randomDay = (int) ((Math.random() * 30) + 1);
 
-        return new Order(cart, randomCust, randomDetails, randomDay, randomStatus, orderId);
+        return new Order(cart, customer, randomDetails, randomDay, randomStatus, orderId);
     }
 
     private String randomAddress() {

@@ -2,10 +2,11 @@ package service;
 
 import entities.OrderStatus;
 import entities.Product;
+import entities.ShippingDetails;
 
 import java.math.BigDecimal;
 
-public class ServiceList implements Comparable <ServiceList> {
+public class ServiceList implements Comparable<ServiceList> {
     private int counter;
     private Product product;
     private int orderId;
@@ -14,10 +15,12 @@ public class ServiceList implements Comparable <ServiceList> {
     private String productName;
     private String customerName;
     private BigDecimal totalCoast;
-    private boolean isDelivery;
+    private String isDelivery;
+    private ShippingDetails shippingDetails;
+    private int customerId;
 
 
-    public ServiceList(int counter, int orderId, int day, OrderStatus status, String productName, String customerName, BigDecimal totalCoast, boolean isDelivery) {
+    ServiceList(int counter, int orderId, int day, OrderStatus status, String productName, String customerName, BigDecimal totalCoast, String isDelivery) {
         this.counter = counter;
         this.orderId = orderId;
         this.day = day;
@@ -28,40 +31,96 @@ public class ServiceList implements Comparable <ServiceList> {
         this.isDelivery = isDelivery;
     }
 
-    public ServiceList(int counter, Product product) {
+    ServiceList(int counter, Product product) {
         this.counter = counter;
         this.product = product;
     }
-    public int getOrderId() {
+
+    ServiceList(int counter, String customerName, BigDecimal totalCoast, int customerId) {
+        this.counter = counter;
+        this.customerName = customerName;
+        this.totalCoast = totalCoast;
+        this.customerId = customerId;
+    }
+
+    public ShippingDetails getShippingDetails() {
+        return shippingDetails;
+    }
+
+    int getCustomerId() {
+        return customerId;
+    }
+
+    int getOrderId() {
         return orderId;
     }
 
-    public int getDay() {
+    int getDay() {
         return day;
     }
 
-    public OrderStatus getStatus() {
+    OrderStatus getStatus() {
         return status;
     }
 
-    public String getProductName() {
+    String getProductName() {
         return productName;
     }
 
-    public String getCustomerName() {
+    String getCustomerName() {
         return customerName;
     }
 
-    public BigDecimal getTotalCoast() {
+    BigDecimal getTotalCoast() {
         return totalCoast;
     }
 
-    public int getCounter() {
+    int getCounter() {
         return counter;
     }
 
-    public Product getProduct() {
+    Product getProduct() {
         return product;
+    }
+
+    String getIsDelivery() {
+        return isDelivery;
+    }
+
+    public int compareTo(ServiceList other) {
+        int dayOfMonthResult = Integer.compare(
+                other.day, this.day);
+        if (dayOfMonthResult != 0) {
+            return dayOfMonthResult;
+        }
+
+        int statusResult = Integer.compare(
+                this.status.ordinal(),
+                other.status.ordinal());
+        if (statusResult != 0) {
+            return statusResult;
+        }
+
+        int customerResult = this.customerName.compareTo(other.customerName);
+        if (customerResult != 0) {
+            return customerResult;
+        }
+
+        int priceResult = other.totalCoast.compareTo(this.totalCoast);
+        if (priceResult != 0) {
+            return priceResult;
+        }
+
+
+        return 0;
+    }
+
+    int counterCompareTo(ServiceList other) {
+        int counterResult = Integer.compare(this.counter, other.counter);
+        if (counterResult != 0) {
+            return counterResult;
+        }
+        return 0;
     }
 
 
@@ -70,8 +129,5 @@ public class ServiceList implements Comparable <ServiceList> {
         return super.toString();
     }
 
-    @Override
-    public int compareTo(ServiceList o) {
-        return o.getCounter()-this.getCounter();
-    }
+
 }

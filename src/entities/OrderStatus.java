@@ -1,8 +1,8 @@
 package entities;
 
 public enum OrderStatus {
-    delivered,
+    formed,
     coasted,
     awaitingDelivery,
-    formed
+    delivered
 }

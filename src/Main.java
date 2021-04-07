@@ -31,11 +31,11 @@ public class Main {
         for (int i = 0; i < 11; i++) {
             orders.addOrder(random.randomOrder(products, customers, i + 1));
         }
-        //printer.printAwaitingDeliveryOrders(orders);
-
-
-        System.out.println(orders);
+        printer.printAwaitingDeliveryOrders(orders);
         printer.printProductList(products, orders);
+        printer.advanced(orders);
+        printer.hard(customers, orders);
+
 
     }
 
