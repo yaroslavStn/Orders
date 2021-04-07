@@ -6,7 +6,7 @@ import entities.ShippingDetails;
 
 import java.math.BigDecimal;
 
-public class ServiceList implements Comparable<ServiceList> {
+public class ItemsForPrint implements Comparable<ItemsForPrint> {
     private int counter;
     private Product product;
     private int orderId;
@@ -20,7 +20,7 @@ public class ServiceList implements Comparable<ServiceList> {
     private int customerId;
 
 
-    ServiceList(int counter, int orderId, int day, OrderStatus status, String productName, String customerName, BigDecimal totalCoast, String isDelivery) {
+    ItemsForPrint(int counter, int orderId, int day, OrderStatus status, String productName, String customerName, BigDecimal totalCoast, String isDelivery) {
         this.counter = counter;
         this.orderId = orderId;
         this.day = day;
@@ -31,12 +31,12 @@ public class ServiceList implements Comparable<ServiceList> {
         this.isDelivery = isDelivery;
     }
 
-    ServiceList(int counter, Product product) {
+    ItemsForPrint(int counter, Product product) {
         this.counter = counter;
         this.product = product;
     }
 
-    ServiceList(int counter, String customerName, BigDecimal totalCoast, int customerId) {
+    ItemsForPrint(int counter, String customerName, BigDecimal totalCoast, int customerId) {
         this.counter = counter;
         this.customerName = customerName;
         this.totalCoast = totalCoast;
@@ -87,7 +87,7 @@ public class ServiceList implements Comparable<ServiceList> {
         return isDelivery;
     }
 
-    public int compareTo(ServiceList other) {
+    public int compareTo(ItemsForPrint other) {
         int dayOfMonthResult = Integer.compare(
                 other.day, this.day);
         if (dayOfMonthResult != 0) {
@@ -115,7 +115,7 @@ public class ServiceList implements Comparable<ServiceList> {
         return 0;
     }
 
-    int counterCompareTo(ServiceList other) {
+    int counterCompareTo(ItemsForPrint other) {
         int counterResult = Integer.compare(this.counter, other.counter);
         if (counterResult != 0) {
             return counterResult;

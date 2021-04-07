@@ -32,7 +32,7 @@ public class Printer {
         String HEADER_FORMAT = "%10s %3s";
         String ROW_FORMAT = "%10s %5d";
 
-        ServiceList[] productInOrders = new ServiceList[productList.size()];
+        ItemsForPrint[] productInOrders = new ItemsForPrint[productList.size()];
         for (int i = 0; i < productList.size(); i++) {
             int sum = 0;
             for (int j = 0; j < orderList.size(); j++) {
@@ -43,7 +43,7 @@ public class Printer {
                         sum++;
                 }
             }
-            productInOrders[i] = new ServiceList(sum, productList.getProduct(i));
+            productInOrders[i] = new ItemsForPrint(sum, productList.getProduct(i));
         }
 
         sortTable(productInOrders);
@@ -52,7 +52,7 @@ public class Printer {
                 "Product",
                 "Quantity");
         System.out.println();
-        for (ServiceList productInOrder : productInOrders) {
+        for (ItemsForPrint productInOrder : productInOrders) {
             String product = productInOrder.getProduct().getName();
             int quantity = productInOrder.getCounter();
             System.out.printf(ROW_FORMAT,
@@ -65,7 +65,7 @@ public class Printer {
     }
 
     public void advanced(OrderList orderList) {
-        ServiceList[] advanced = new ServiceList[orderList.size()];
+        ItemsForPrint[] advanced = new ItemsForPrint[orderList.size()];
         for (int i = 0; i < orderList.size(); i++) {
             int orderId = orderList.getOrder(i).getId();
             int day = orderList.getOrder(i).getDay();
@@ -76,7 +76,7 @@ public class Printer {
             BigDecimal totalCoast = orderList.getOrder(i).getShippingDetails().getCoast();
             String isDelivery = orderList.getOrder(i).getShippingDetails() != null ? "Yes" : "No";
 
-            advanced[i] = new ServiceList(quantityProducts, orderId, day, status, nameFirstProduct, customerName, totalCoast, isDelivery);
+            advanced[i] = new ItemsForPrint(quantityProducts, orderId, day, status, nameFirstProduct, customerName, totalCoast, isDelivery);
         }
         sortTable(advanced);
         printSortedTable(advanced);
@@ -84,7 +84,7 @@ public class Printer {
     }
 
     public void hard(Customer[] customers, OrderList orderList) {
-        ServiceList[] hard = new ServiceList[customers.length];
+        ItemsForPrint[] hard = new ItemsForPrint[customers.length];
 
         for (int i = 0; i < customers.length; i++) {
             int quantity = 0;
@@ -97,12 +97,12 @@ public class Printer {
                     totalCoast = totalCoast.add(orderList.getOrder(j).getShippingDetails().getCoast());
                 }
             }
-            hard[i] = new ServiceList(quantity, customers[i].getName(), totalCoast, customers[i].getId());
+            hard[i] = new ItemsForPrint(quantity, customers[i].getName(), totalCoast, customers[i].getId());
         }
         printHardTable(hard);
     }
 
-    private void sortTable(ServiceList[] serviceList) {
+    private void sortTable(ItemsForPrint[] serviceList) {
         for (int i = 0; i < serviceList.length; i++) {
             int compare;
             for (int j = 0; j < serviceList.length; j++) {
@@ -110,7 +110,7 @@ public class Printer {
                     compare = serviceList[i].counterCompareTo(serviceList[j]);
                 } else compare = serviceList[i].compareTo(serviceList[j]);
                 if (compare < 0) {
-                    ServiceList item = serviceList[j];
+                    ItemsForPrint item = serviceList[j];
                     serviceList[j] = serviceList[i];
                     serviceList[i] = item;
                 }
@@ -118,7 +118,7 @@ public class Printer {
         }
     }
 
-    private void printHardTable(ServiceList[] items) {
+    private void printHardTable(ItemsForPrint[] items) {
         String HEADER_FORMAT = "%5s %10s %3s %10s";
         String ROW_FORMAT = "%5d %10s %5d %13s";
 
@@ -129,7 +129,7 @@ public class Printer {
                 "Total");
         System.out.println();
 
-        for (ServiceList item : items) {
+        for (ItemsForPrint item : items) {
             System.out.printf(ROW_FORMAT,
                     item.getCustomerId(),
                     item.getCustomerName(),
@@ -140,7 +140,7 @@ public class Printer {
         }
     }
 
-    private void printSortedTable(ServiceList[] items) {
+    private void printSortedTable(ItemsForPrint[] items) {
         String HEADER_FORMAT = "%5s %3s%20s %-15s%3s %15s %12s %5s";
         String ROW_FORMAT = "%5d %3d%20s %-15s%5d %15s %15s %5s";
 
@@ -155,7 +155,7 @@ public class Printer {
                 "Shipping");
         System.out.println();
 
-        for (ServiceList item : items) {
+        for (ItemsForPrint item : items) {
             System.out.printf(ROW_FORMAT,
                     item.getOrderId(),
                     item.getDay(),
